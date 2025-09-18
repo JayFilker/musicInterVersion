@@ -1,5 +1,7 @@
+import { useAtom } from 'jotai'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { audioRefAtom, CountDemo } from '../../store/store.ts'
 import eventBus from '../../utils/eventBus.ts'
 import { SvgIcon } from '../SvgIcon'
 import './index.less'
@@ -7,15 +9,20 @@ import './index.less'
 export function SongListImg(props: {
     img: string
     id: string
+    radio?: Array<any>
     number?: number
     index: number
     check?: boolean
     size?: string
     newAlbum?: boolean
 }) {
-    const { img, id, check, size, newAlbum } = props
+    const { img, id, check, size, newAlbum, radio } = props
     const navigate = useNavigate()
     const [show, setShow] = useState<boolean>(false)
+    // const [, setRadioListOne] = useAtom(radioList)
+    // const [, setRadioListDemoOne] = useAtom(radioListDemo)
+    const [audioRefDemo] = useAtom(audioRefAtom)
+    const [, setCount] = useAtom(CountDemo)
     // useEffect(() => {
     //     if (number === 0 && index === 0) {
     //         initTwo(id, img, false).then()
@@ -38,8 +45,24 @@ export function SongListImg(props: {
                 className="cover-container"
                 onClick={(e) => {
                     if (size && !newAlbum) {
-                        eventBus.emit('playList-playing', { e, id, img, check: !!check })
-                        // handleClick({ e, id, index, img })
+                        // if (radio) {
+                        //     setRadioListOne(radio)
+                        //     setRadioListDemoOne(radio[0])
+                        // }
+                        // setRadioListOne(['https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3'])
+                        // setRadioListDemoOne('https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3')
+                        if (audioRefDemo) {
+                            audioRefDemo.load()
+                        }
+                        // }
+                        setCount(0)
+                        eventBus.emit('playList-playing', { e, id: { id, radio: radio || [] }, img, check: !!check })
+                        if (audioRefDemo) {
+                            // 重置播放位置到开头
+                            audioRefDemo.currentTime = 0
+                            // 开始播放
+                            audioRefDemo.play()
+                        }
                     }
                 }}
             >
@@ -62,8 +85,21 @@ export function SongListImg(props: {
                         }
 
                         onClick={(e) => {
+                            // setRadioListOne(['https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3'])
+                            // setRadioListDemoOne('https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3')
+                            // if (radio) {
+                            //     setRadioListOne(radio)
+                            //     setRadioListDemoOne(radio[0])
+                            // }
                             // handleClick({ e, id, index, img })
-                            eventBus.emit('playList-playing', { e, id, img, check: !!check })
+                            setCount(0)
+                            eventBus.emit('playList-playing', { e, id: { id, radio: radio || [] }, img, check: !!check })
+                            if (audioRefDemo) {
+                                // 重置播放位置到开头
+                                audioRefDemo.currentTime = 0
+                                // 开始播放
+                                audioRefDemo.play()
+                            }
                         }}
                     >
                         <SvgIcon sty={{ width: '65%', height: '65%' }}>

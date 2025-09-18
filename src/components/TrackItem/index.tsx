@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-import { CountDemo, CurrentSongList, Playing } from '../../store/store.ts'
+import { CountDemo, CurrentSongList, Playing, radioList, radioListDemo } from '../../store/store.ts'
 import eventBus from '../../utils/eventBus.ts'
 import './index.less'
 
@@ -10,14 +10,17 @@ interface Props {
     tracks?: any
     songFirst: boolean
     setSongFirst: (arg0: boolean) => void
+    radio?: Array<any>
 }
 
 export function TrackItem(props: Props) {
-    const { track, index, tracks, songFirst, setSongFirst } = props
+    const { track, index, tracks, songFirst, setSongFirst, radio } = props
     const [play, setPlay] = useAtom(Playing)
     const [focus, setFocus] = useState(false)
     const [, setCurrentSong] = useAtom<{ items: Array<any>, imgPic: string }>(CurrentSongList)
     const [count, setCount] = useAtom(CountDemo)
+    const [, setRadioListOne] = useAtom(radioList)
+    const [, setRadioListDemoOne] = useAtom(radioListDemo)
     useEffect(() => {
         setPlay((prev) => {
             const newPlay = prev.map(() => {
@@ -33,6 +36,10 @@ export function TrackItem(props: Props) {
             onDoubleClick={() => {
                 setCurrentSong({ items: [...tracks], imgPic: track.album.images[0].url })
                 setCount(index)
+                if (radio) {
+                    setRadioListOne(radio)
+                    setRadioListDemoOne(radio[index || 0])
+                }
                 // @ts-ignore
                 eventBus.emit('play-track', track.uri)
                 setSongFirst(false)

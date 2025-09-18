@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAlbum, useAlbumSong } from '../../api/album.ts'
 import {
+    arePlayAtom,
+    audioRefAtom,
     BadLike,
     CountDemo,
     CurrentSongList,
@@ -10,6 +12,8 @@ import {
     IsPlayingDemo,
     IsPlayingDemoTwo,
     Link,
+    radioList,
+    radioListDemo,
 } from '../../store/store.ts'
 import eventBus from '../../utils/eventBus.ts'
 import { ButtonIcon } from '../ButtonIcon'
@@ -20,9 +24,10 @@ import { svgList } from './svg.tsx'
 import './index.less'
 
 export function Foryou() {
-    const [randomLetter, setRandomLetter] = useState<any>()
-    const { data } = useAlbum(randomLetter)
-    const { data: albumSong } = useAlbumSong(data?.albums?.items?.[0].id)
+    const [, setRandomLetter] = useState<any>()
+    const { data } = useAlbum('y')
+    // const { data: albumSong } = useAlbumSong(data?.albums?.items?.[0].id)
+    const { data: albumSong } = useAlbumSong('18Q01D7GFl85NruCnXalNO')
     const [, setFirstPlay] = useAtom(FirstPlay)
     const [, setCount] = useAtom(CountDemo)
     const navigate = useNavigate()
@@ -30,31 +35,53 @@ export function Foryou() {
     const [, setIsPlaying] = useAtom(IsPlayingDemo)
     const [isPlayingTwo, setIsPlayingTwo] = useAtom(IsPlayingDemoTwo)
     const [linkDemo, setLinkDemo] = useAtom(Link)
-    const [countL, setCountL] = useState(0)
+    const [arePlay, setArePlay] = useAtom(arePlayAtom)
+    // const [countL, setCountL] = useState(0)
+    const [radioListOne, setRadioListOne] = useAtom(radioList)
+    const [radioListDemoOne, setRadioListDemoOne] = useAtom(radioListDemo)
     const [, setCurrentSong] = useAtom<{ items: Array<any> }>(CurrentSongList)
+    const [audioRefDemo] = useAtom(audioRefAtom)
     const randomGradient = useMemo(() =>
         `linear-gradient(to left top,
    rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}),
    rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}))`, [])
     function nextSong() {
-        setFirstPlay(false)
-        setLinkDemo(true)
-        setIsPlayingTwo(true)
-        setBadLikeDemo(true)
-        setCurrentSong({
-            ...albumSong,
-            imgPic: data?.albums?.items[0].images[0].url,
-        })
-        if (countL < albumSong?.items.length - 1) {
-            // @ts-ignore
-            eventBus.emit('play-track', albumSong?.items[countL + 1].uri)
-            setCountL(countL + 1)
-            setCount(countL + 1)
+        // setFirstPlay(false)
+        // setLinkDemo(true)
+        // setIsPlayingTwo(true)
+        // setBadLikeDemo(true)
+        // setCurrentSong({
+        //     ...albumSong,
+        //     imgPic: data?.albums?.items[0].images[0].url,
+        // })
+        // if (countL < albumSong?.items.length - 1) {
+        //     // @ts-ignore
+        //     eventBus.emit('play-track', albumSong?.items[countL + 1].uri)
+        //     setCountL(countL + 1)
+        //     setCount(countL + 1)
+        // }
+        // else {
+        //     // @ts-ignore
+        //     eventBus.emit('play-track', albumSong?.items[countL].uri)
+        //     setCount(countL)
+        // }
+        if (radioListOne && radioListOne.length > 1) {
+            if (radioListDemoOne === radioListOne[0]) {
+                setRadioListDemoOne(radioListOne[1])
+                setCount(1)
+            }
+            else {
+                setRadioListDemoOne(radioListOne[0])
+                setCount(0)
+            }
         }
         else {
-            // @ts-ignore
-            eventBus.emit('play-track', albumSong?.items[countL].uri)
-            setCount(countL)
+            if (audioRefDemo) {
+                // 重置播放位置到开头
+                audioRefDemo.currentTime = 0
+                // 开始播放
+                audioRefDemo.play()
+            }
         }
     }
 
@@ -68,6 +95,14 @@ export function Foryou() {
                         imgPic: data?.albums?.items[0].images[0].url,
                     })
                     setCount(0)
+                    setRadioListOne(data?.albums?.items[0]?.radio)
+                    setRadioListDemoOne(data?.albums?.items[0]?.radio[0])
+                    if (audioRefDemo) {
+                        // 重置播放位置到开头
+                        audioRefDemo.currentTime = 0
+                        // 开始播放
+                        audioRefDemo.play()
+                    }
                     // @ts-ignore
                     eventBus.emit('play-track', albumSong?.items[0].uri)
                     setLinkDemo(true)
@@ -79,6 +114,11 @@ export function Foryou() {
                 setIsPlaying(true)
             }
             else {
+                if (audioRefDemo && arePlay) {
+                    audioRefDemo.pause()
+                    setArePlay(false)
+                    setIsPlaying(false)
+                }
                 // @ts-ignore
                 eventBus.emit('play-stop')
                 setIsPlaying(false)

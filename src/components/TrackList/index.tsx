@@ -35,6 +35,7 @@ export function TrackList(props: {
             setPlayingTrack(demo)
         }
     }, [count])
+    console.log(songListInfo)
     return (
         <div className="track-list">
             <div>
@@ -48,6 +49,7 @@ export function TrackList(props: {
                             index={index}
                             setPlayingTrack={setPlayingTrack}
                             setFirst={setFirst}
+                            radio={songListInfo?.radio}
                         >
                         </TrackListItem>
                     )
@@ -63,6 +65,7 @@ export function TrackList(props: {
                             setPlayingTrack={setPlayingTrack}
                             songFirst={songFirst}
                             setSongFirst={setSongFirst}
+                            radio={trackDemo?.radio}
                         >
                         </TrackListDemo>
                     )

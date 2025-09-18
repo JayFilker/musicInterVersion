@@ -1,12 +1,12 @@
 import { useAtom } from 'jotai/index'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useFavoriteList, useUpdateFavoriteList } from '../../../api/favoriteSongs.ts'
 import defaultImg from '../../../assets/img/default.png'
 import { SongListImg } from '../../../components/SongListImg'
 import { SvgIcon } from '../../../components/SvgIcon'
 import { ContextMenu } from '../../../components/TopList/ContextMenu'
-import { PlayingTrack } from '../../../store/store.ts'
+import { audioRefAtom, CountDemo, PlayingTrack } from '../../../store/store.ts'
 import eventBus from '../../../utils/eventBus.ts'
 import { playListSvg } from './svg.tsx'
 
@@ -24,10 +24,12 @@ export function PlayListInfo(props: any) {
     } = props
     const [showSearch, setShowSearch] = useState(false)
     const [inputFocus, setInputFocus] = useState(false)
+    const [, setCount] = useAtom(CountDemo)
     const inputRef = useRef<HTMLInputElement>(null)
     const [playingTrack, setPlayingTrack] = useAtom(PlayingTrack)
     const list = ['保存到音乐库', '歌单内搜索']
     const { t } = useTranslation()
+    const [audioRefDemo] = useAtom(audioRefAtom)
     const [like, setLike] = useState<any>()
     const { data: favoriteList } = useFavoriteList(like, searchParams.get('type') === 'playlists' ? 'playList' : 'album')
     const { mutateAsync: updateFavoriteList } = useUpdateFavoriteList()
@@ -54,6 +56,7 @@ export function PlayListInfo(props: any) {
                 index={666}
                 size="290px"
                 check={searchParams.get('type') === 'playlists'}
+                radio={songList?.tracks?.items[0]?.radio || []}
             >
             </SongListImg>
             <div className="info">
@@ -72,15 +75,15 @@ export function PlayListInfo(props: any) {
                                 </a>
                             )
                         : songList?.artists?.map((item: any, index: number) => {
-                                return (
-                                    <>
-                                        <a target="blank" href={`/artist?id=${item.id}`}>{item.name}</a>
-                                        {
-                                            index < songList.artists.length - 1 && ', '
-                                        }
-                                    </>
-                                )
-                            })}
+                            return (
+                                <React.Fragment key={index}>
+                                    <a target="blank" href={`/artist?id=${item?.id}`}>{item?.name}</a>
+                                    {
+                                        index < songList.artists.length - 1 && ', '
+                                    }
+                                </React.Fragment>
+                            )
+                        })}
                 </div>
                 {songList
                     ? (
@@ -90,9 +93,9 @@ export function PlayListInfo(props: any) {
                                     : ''}
                                 {searchParams.get('type') === 'playlists'
                                     ? songList?.tracks?.items[songList?.tracks?.items?.length - 1]?.added_at?.split('T')[0].split('-').map((part: any, index: number) => {
-                                            const units = ['年', '月', '日']
-                                            return part ? `${part}${units[index] || ''}` : ''
-                                        }).join('')
+                                        const units = ['年', '月', '日']
+                                        return part ? `${part}${units[index] || ''}` : ''
+                                    }).join('')
                                     : songList?.release_date?.split('-')[0]}
                                 {' · '}
                                 {songList?.tracks?.items?.length}
@@ -115,9 +118,13 @@ export function PlayListInfo(props: any) {
                         style={{ borderRadius: '8px', padding: '8px 16px', width: 'auto' }}
 
                         onClick={(e) => {
+                            setCount(0)
                             eventBus.emit('playList-playing', {
                                 e,
-                                id: songList?.id,
+                                id: {
+                                    id: songList?.id,
+                                    radio: songList?.tracks?.items[0]?.radio || [],
+                                },
                                 img: searchParams.get('type') === 'playlists' ? songListInfo.items[0].track?.album.images[0].url : songList?.images[0].url,
                                 check: searchParams.get('type') === 'playlists',
                             })
@@ -125,6 +132,12 @@ export function PlayListInfo(props: any) {
                             demo[0] = true
                             setPlayingTrack(demo)
                             setFirst(false)
+                            if (audioRefDemo) {
+                                // 重置播放位置到开头
+                                audioRefDemo.currentTime = 0
+                                // 开始播放
+                                audioRefDemo.play()
+                            }
                         }}
                     >
                         <SvgIcon sty={{ marginRight: '8px' }}>

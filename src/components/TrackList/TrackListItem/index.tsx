@@ -1,14 +1,17 @@
+import { useAtom } from 'jotai/index'
 import { useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import { CountDemo } from '../../../store/store.ts'
 import eventBus from '../../../utils/eventBus.ts'
 import { SvgIcon } from '../../SvgIcon'
 import { TItemSvgList } from './TItemSvgList.tsx'
 import './index.less'
 
 export function TrackListItem(track: any) {
-    const { content, playingTrack, index, setPlayingTrack, songList, setFirst } = track
+    const { content, playingTrack, index, setPlayingTrack, songList, setFirst, radio } = track
     const [searchParams] = useSearchParams()
     const [showIcon, setShowIcon] = useState(false)
+    const [count] = useAtom(CountDemo)
     const [showRow, setShowRow] = useState(false)
     const msToMinutes = (ms: number): string => {
         const minutes = Math.floor(ms / 60000)
@@ -17,7 +20,8 @@ export function TrackListItem(track: any) {
     }
     return (
         <div
-            className={`track ${searchParams.get('type') === 'playlists' ? 'playlist' : 'album'} ${showRow ? 'focus' : ''} ${playingTrack[index] ? 'playing' : ''}`}
+            // className={`track ${searchParams.get('type') === 'playlists' ? 'playlist' : 'album'} ${showRow ? 'focus' : ''} ${playingTrack[index] ? 'playing' : ''}`}
+            className={`track ${searchParams.get('type') === 'playlists' ? 'playlist' : 'album'} ${showRow ? 'focus' : ''} ${count === index ? 'playing' : ''}`}
             onMouseEnter={() => {
                 setShowIcon(true)
                 setShowRow(true)
@@ -33,7 +37,10 @@ export function TrackListItem(track: any) {
                 setPlayingTrack(demo)
                 eventBus.emit('playList-playing', {
                     e,
-                    id: songList?.id,
+                    id: {
+                        id: songList?.id,
+                        radio: radio || [],
+                    },
                     img: searchParams.get('type') === 'playlists' ? content?.track?.album.images[0].url : songList?.images[0].url,
                     check: searchParams.get('type') === 'playlists',
                     count: index,
@@ -98,8 +105,11 @@ export function TrackListItem(track: any) {
                                             -
                                             {content?.artists?.map((track: any, index: number) => (
 
-                                                <span>
-                                                    <a href={`/artist?id=${track.id}`}>
+                                                <span key={index}>
+                                                    <a
+                                                        target="blank"
+                                                        href={`https://music.163.com/#/user/home?id=${track.id}`}
+                                                    >
                                                         {track.name}
                                                     </a>
                                                     {index < content?.artists.length - 1
@@ -130,9 +140,11 @@ export function TrackListItem(track: any) {
                                             {content?.track?.artists.map((track: any, index: number) => (
 
                                                 <span>
-                                                    <a href={`/artist?id=${track.id}`}>
+                                                    {/* <a href={`/artist?id=${track.id}`}> */}
+                                                    <div>
                                                         {track.name}
-                                                    </a>
+                                                    </div>
+                                                    {/* </a> */}
                                                     {index < content?.track?.artists.length - 1
                                                         && <span className="separator">，</span>}
                                                 </span>
@@ -154,11 +166,13 @@ export function TrackListItem(track: any) {
                                 className="album"
                                 style={{ display: searchParams.get('type') === 'playlists' ? '' : 'none' }}
                             >
-                                <Link
-                                    to={`/playsList?id=${content?.track?.album?.id}&type=albums`}
-                                >
+                                {/* <Link */}
+                                {/*    to={`/playsList?id=${content?.track?.album?.id}&type=albums`} */}
+                                {/* > */}
+                                <div>
                                     {content?.track?.album?.name}
-                                </Link>
+                                </div>
+                                {/* </Link> */}
                                 <div></div>
                             </div>
                         )

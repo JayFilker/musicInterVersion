@@ -15,6 +15,7 @@ export function Info(props: any) {
                                         <a
                                             href={`/artist?id=${artist.id}`}
                                             id="info-span"
+                                            key={artist.id}
                                         >
                                             {artist.name}
                                         </a>
@@ -27,6 +28,7 @@ export function Info(props: any) {
                                     <a
                                         href={`/artist?id=${artist.id}`}
                                         id="info-span"
+                                        key={artist.id}
                                     >
                                         {artist.name}
                                     </a>

@@ -8,7 +8,7 @@ import './index.less'
 export default function More() {
     const [searchParams] = useSearchParams()
     const { t } = useTranslation()
-    const { data } = useFirstFetchProfile(searchParams.get('key') as string, 50, 'album')
+    const { data } = useFirstFetchProfile('new', 50, 'album')
     return (
         <div className="newAlbum">
             <h1 style={{ color: '#fff' }}>

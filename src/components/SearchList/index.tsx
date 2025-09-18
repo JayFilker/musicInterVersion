@@ -9,11 +9,14 @@ interface Props {
         id: string
         images: Array<{ url: string }>
         name: string
+        radio: Array<any>
+        type: string
     }>
 }
 
 export function SearchList(props: Props) {
     const { songList } = props
+    console.log(songList)
     return (
         <div
             className="cover-row"
@@ -30,6 +33,8 @@ export function SearchList(props: Props) {
                                 img={item.images[0]?.url}
                                 index={index}
                                 id={item.id}
+                                radio={item.radio}
+                                check={item.type !== 'album'}
                             >
                             </SongListImg>
                             <div className="text">
@@ -60,7 +65,12 @@ export function SearchList(props: Props) {
 
                                 </div>
                                 <div className="title">
-                                    <Link to={`/playsList?id=${item.id}&type=albums`} style={{ color: 'white' }}>{item.name}</Link>
+                                    <Link
+                                        to={`/playsList?id=${item.id}&type=albums`}
+                                        style={{ color: 'white' }}
+                                    >
+                                        {item.name}
+                                    </Link>
 
                                 </div>
 

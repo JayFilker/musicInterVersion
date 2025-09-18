@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useFavoriteArtist, useUpdateFavoriteArtist } from '../../../api/favoriteSongs.ts'
 import { SvgIcon } from '../../../components/SvgIcon'
 import { ContextMenu } from '../../../components/TopList/ContextMenu'
-import { CountDemo, CurrentSongList, Playing } from '../../../store/store.ts'
+import { CountDemo, CurrentSongList, Playing, radioList, radioListDemo } from '../../../store/store.ts'
 import eventBus from '../../../utils/eventBus.ts'
 import { artistSvgList } from '../artistSvgList.tsx'
 
@@ -17,6 +17,8 @@ export function ArtistInfo(props: any) {
     const [, setCount] = useAtom(CountDemo)
     const [, setCurrentSong] = useAtom<{ items: Array<any>, imgPic: string }>(CurrentSongList)
     const [like] = useState<any>(false)
+    const [, setRadioListOne] = useAtom(radioList)
+    const [, setRadioListDemoOne] = useAtom(radioListDemo)
     const { data: favoriteArtist, refetch } = useFavoriteArtist(like)
     const { mutateAsync: updateFavoriteArtist } = useUpdateFavoriteArtist()
     return (
@@ -33,7 +35,7 @@ export function ArtistInfo(props: any) {
                 </div>
                 <div className="statistics">
                     <a href="#popularTracks">
-                        {`${hotSongs?.tracks.length} `}
+                        {`${hotSongs?.tracks?.length} `}
                         {' '}
                         {t('首热门歌曲')}
                     </a>
@@ -69,7 +71,8 @@ export function ArtistInfo(props: any) {
                                 newPlay[0] = true
                                 return newPlay
                             })
-                            console.log(hotSongs?.tracks[0].url)
+                            setRadioListOne(albumsArtist.radio)
+                            setRadioListDemoOne(albumsArtist.radio[0])
                             setSongFirst(false)
                             // @ts-ignore
                             eventBus.emit('play-track', hotSongs?.tracks[0].uri)

@@ -6,6 +6,7 @@ import './index.css'
 
 // 导入mocks
 import './src/mocks/mockFetch.js'
+// import './src/mocks/mockAxios.js'
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>

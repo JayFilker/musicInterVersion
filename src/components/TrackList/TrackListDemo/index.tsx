@@ -1,19 +1,32 @@
 import { useAtom } from 'jotai/index'
 import { useEffect, useState } from 'react'
-import { BadLike, CountDemo, CurrentSongList, FirstPlay, IsPlayingDemoTwo, Link } from '../../../store/store.ts'
+import {
+    audioRefAtom,
+    BadLike,
+    CountDemo,
+    CurrentSongList,
+    FirstPlay,
+    IsPlayingDemoTwo,
+    Link,
+    radioList,
+    radioListDemo,
+} from '../../../store/store.ts'
 import eventBus from '../../../utils/eventBus.ts'
 import { SvgIcon } from '../../SvgIcon'
 import './index.less'
 
 export function TrackListDemo(props: any) {
-    const { content, playingTrack, index, setPlayingTrack, songList, songFirst, setSongFirst } = props
+    const { content, playingTrack, index, setPlayingTrack, songList, songFirst, setSongFirst, radio } = props
     const [showIcon, setShowIcon] = useState(false)
     const [, setBadLikeDemo] = useAtom(BadLike)
     const [, setIsPlayingTwo] = useAtom(IsPlayingDemoTwo)
     const [, setLinkDemo] = useAtom(Link)
     const [count, setCount] = useAtom(CountDemo)
+    const [, setRadioListOne] = useAtom(radioList)
+    const [, setRadioListDemoOne] = useAtom(radioListDemo)
     const [, setCurrentSong] = useAtom<{ items: Array<any> }>(CurrentSongList)
     const [, setFirstPlay] = useAtom(FirstPlay)
+    const [audioRefDemo] = useAtom(audioRefAtom)
     const [showRow, setShowRow] = useState(false)
     const msToMinutes = (ms: number): string => {
         const minutes = Math.floor(ms / 60000)
@@ -26,7 +39,15 @@ export function TrackListDemo(props: any) {
             ...songList,
             imgPic: content?.album?.images?.[0]?.url || songList?.imgPic,
         })
+        setRadioListOne(radio)
+        setRadioListDemoOne(radio[count || 0])
         setFirstPlay(false)
+        if (audioRefDemo) {
+            // 重置播放位置到开头
+            audioRefDemo.currentTime = 0
+            // 开始播放
+            audioRefDemo.play()
+        }
         // @ts-ignore
         eventBus.emit('play-track', content?.uri)
     }
@@ -86,9 +107,11 @@ export function TrackListDemo(props: any) {
                                 {content?.artists.map((track: any, index: number) => (
 
                                     <span>
-                                        <a href={`/artist?id=${track.id}`}>
+                                        {/* <a href={`/artist?id=${track.id}`}> */}
+                                        <div>
                                             {track.name}
-                                        </a>
+                                        </div>
+                                        {/* </a> */}
                                         {index < content?.artists.length - 1
                                             && <span className="separator">，</span>}
                                     </span>
@@ -100,7 +123,8 @@ export function TrackListDemo(props: any) {
                 <div></div>
             </div>
             <div className="album">
-                <a href={`/playsList?id=${content?.album?.id}&type=albums`}>{content?.album?.name}</a>
+                {/* <a href={`/playsList?id=${content?.album?.id}&type=albums`}>{content?.album?.name}</a> */}
+                <div>{content?.album?.name}</div>
                 <div></div>
             </div>
             <div v-if="showLikeButton" className="actions">

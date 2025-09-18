@@ -13,7 +13,9 @@ export default function Search() {
     const [searchParams] = useSearchParams()
     const { t } = useTranslation()
     const { data } = useMovie()
-    const { data: fetchProfile } = useFetchProfile(searchParams.get('q'))
+    // const { data: fetchProfile } = useFetchProfile(searchParams.get('q'))
+    const { data: fetchProfile } = useFetchProfile(2)
+    console.log(fetchProfile)
     return (
         <div className="search-page">
             <div className="row">
@@ -35,6 +37,7 @@ export default function Search() {
                                     name: item.name,
                                     personSongList: [],
                                     id: item.id,
+                                    radio: item.radio,
                                     imgPic: item.images?.[0]?.url || 'https://p2.music.126.net/svHK8nEPa8J42tJ1by7jrw==/109951169875194361.jpg?param=512y512',
                                 })) || []
                         }
@@ -54,6 +57,7 @@ export default function Search() {
                                 id: string
                                 name: string
                                 images: Array<any>
+                                radio: Array<any>
                             }, index: number) => {
                                 return {
                                     id: item.id,
@@ -61,6 +65,7 @@ export default function Search() {
                                     des: fetchProfile.albums.items[index].artists[0].name,
                                     imgPic: item.images[0].url,
                                     content: [],
+                                    radio: item.radio,
                                 }
                             })}
                     >
@@ -73,7 +78,7 @@ export default function Search() {
                     {t('歌曲')}
                     <Link to={`/searchDemo?type=track&key=${searchParams.get('q')}`}>{t('查看全部')}</Link>
                 </div>
-                <Track tracks={fetchProfile?.tracks}></Track>
+                <Track tracks={fetchProfile?.tracks} radio={fetchProfile?.tracks?.items[0]?.radio}></Track>
             </div>
 
             <div className="music-videos">
@@ -95,12 +100,14 @@ export default function Search() {
                         id: string
                         name: string
                         images: Array<any>
+                        radio: Array<any>
                     }) => {
                         return {
                             playListId: item.id,
                             title: item.name,
                             imgPic: item.images[0].url,
                             content: [],
+                            radio: item.radio,
                         }
                     })}
                 >

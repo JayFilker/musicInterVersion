@@ -19,7 +19,9 @@ export default function SearchDemo() {
     const [currentNumber, setCurrentNumber] = useState(0)
     const { t } = useTranslation()
     const { data } = useMovie()
-    const { data: content } = useContent(searchParams.get('type') as string, searchParams.get('key') as string, currentNumber)
+    // const { data: content } = useContent(searchParams.get('type') as string, searchParams.get('key') as string, currentNumber)
+    const { data: content } = useContent(searchParams.get('type') as string, 2, currentNumber)
+    console.log(content)
     useEffect(() => {
         if (content && currentNumber === 0) {
             setContentList(content)
@@ -66,6 +68,7 @@ export default function SearchDemo() {
                                 personSongList: [],
                                 id: item.id,
                                 imgPic: item.images?.[0]?.url || defaultImg,
+                                radio: item.radio,
                             }
                         }) || []
                     }
@@ -79,6 +82,7 @@ export default function SearchDemo() {
                         name: string
                         images: Array<any>
                         artists: Array<any>
+                        radio: Array<any>
                     }) => {
                         return {
                             id: item.id,
@@ -86,13 +90,18 @@ export default function SearchDemo() {
                             des: item?.artists[0]?.name,
                             imgPic: item?.images[0]?.url || defaultImg,
                             content: [],
+                            radio: item.radio,
                         }
                     })}
                 >
                 </SongList>
             </div>
             <div style={{ display: searchParams.get('type') === 'track' ? '' : 'none' }}>
-                <TrackList trackDemo={contentList?.tracks}></TrackList>
+                {/* <TrackList trackDemo={contentList?.tracks}></TrackList> */}
+                <TrackList
+                    trackDemo={{ ...contentList?.tracks, radio: contentList?.tracks?.items[0]?.radio || [] }}
+                >
+                </TrackList>
             </div>
             <div style={{ display: searchParams.get('type') === 'movie' ? '' : 'none' }}>
                 <Movie movie={data} keyValue={searchParams.get('key') || ''} limitNumber={0}></Movie>
@@ -103,12 +112,14 @@ export default function SearchDemo() {
                         id: string
                         name: string
                         images: Array<any>
+                        radio: Array<any>
                     }) => {
                         return {
-                            playListId: item?.id,
+                            playListId: item.id,
                             title: item?.name,
                             imgPic: item?.images[0]?.url || defaultImg,
                             content: [],
+                            radio: item.radio,
                         }
                     })}
                 >
