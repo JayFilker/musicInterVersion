@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { SongListImg } from '../SongListImg'
 import './index.less'
@@ -11,6 +12,7 @@ interface Props {
         imgPic: string
         des: string
         artists?: any
+        radio?: Array<any>
     }>
     style?: object
 
@@ -18,6 +20,7 @@ interface Props {
 
 export function SongList(props: Props) {
     const { songList, style } = props
+    console.log(songList)
     return (
         <div
             className="cover-row"
@@ -36,6 +39,7 @@ export function SongList(props: Props) {
                                 index={index}
                                 check={!!item.playListId}
                                 id={(item.id ? item.id : item.playListId) as string}
+                                radio={item.radio}
                             >
                             </SongListImg>
                             <div className="text">
@@ -54,20 +58,25 @@ export function SongList(props: Props) {
                                     {
                                         item?.artists
                                             ? item?.artists.map((artists: any, index: number) => {
-                                                    if (index < item?.artists.length - 1) {
-                                                        return (
-                                                            <>
-                                                                <Link to={`/artist?id=${artists?.id}`}>{artists?.name}</Link>
-                                                                <span>，</span>
-                                                            </>
-                                                        )
-                                                    }
-                                                    else {
-                                                        return (
+                                                if (index < item?.artists.length - 1) {
+                                                    return (
+                                                        <React.Fragment key={index}>
                                                             <Link to={`/artist?id=${artists?.id}`}>{artists?.name}</Link>
-                                                        )
-                                                    }
-                                                })
+                                                            <span>，</span>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                                else {
+                                                    return (
+                                                        <Link
+                                                            to={`/artist?id=${artists?.id}`}
+                                                            key={index}
+                                                        >
+                                                            {artists?.name}
+                                                        </Link>
+                                                    )
+                                                }
+                                            })
 
                                             : <span>{item.des ? item.des : ''}</span>
                                     }

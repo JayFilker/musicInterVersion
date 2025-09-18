@@ -15,6 +15,8 @@ import {
     navigationRequestAtom,
     PlayCountDemo,
     PlayDemo,
+    radioList,
+    radioListDemo,
 } from '../../../store/store.ts'
 import eventBus from '../../../utils/eventBus.ts'
 import { CustomSlider } from '../../Bar'
@@ -28,7 +30,6 @@ import { svgList } from '../RightControlButtons/svgList.tsx'
 export function MiddleTwo(props: any) {
     const {
         lyrics,
-        playTrack,
         audioRef,
         volume,
         setVolume,
@@ -84,16 +85,28 @@ export function MiddleTwo(props: any) {
     const [, setCurrentSong] = useAtom<{ items: Array<any> }>(CurrentSongList)
     const [check, setCheck] = useAtom(CheckDemo)
     const [, setFirstPlay] = useAtom(FirstPlay)
-    const { data } = useInternalInit(idDemo, check || false)
-
+    const [, setRadioListOne] = useAtom(radioList)
+    const [, setRadioListDemoOne] = useAtom(radioListDemo)
+    const { data } = useInternalInit(idDemo?.id, check || false)
     useEffect(() => {
         if (data) {
             countDemo ? setCount(countDemo) : setCount(0)
             setCurrentSong({
                 ...data,
+                id: idDemo.id,
                 items: data.items.map((item: any) => item.track || item),
                 imgPic: imgDemo,
+                type: check ? 'playlists' : 'albums',
             })
+            // setRadioListOne(idDemo.radio)
+            // setRadioListDemoOne(idDemo.radio[0])
+
+            // console.log({
+            //     ...data,
+            //     id: idDemo.id,
+            //     items: data.items.map((item: any) => item.track || item),
+            //     imgPic: imgDemo,
+            // })
             if (playDemo) {
                 setFirstPlay(false)
                 if (countDemo) {
@@ -128,6 +141,8 @@ export function MiddleTwo(props: any) {
         setLinkDemo(false)
         setBadLikeDemo(false)
         setIsPlayingTwo(false)
+        setRadioListOne(data.id.radio)
+        setRadioListDemoOne(data.id.radio[data.count || 0])
         data.count ? initTwo(data.id, data.img, true, data.check, data.count) : initTwo(data.id, data.img, true, data.check)
     }
 
@@ -167,7 +182,7 @@ export function MiddleTwo(props: any) {
                                 />
                             </div>
                             <div className="controls">
-                                <LeftBottom playTrack={playTrack}></LeftBottom>
+                                <LeftBottom></LeftBottom>
                                 <MiddleControlButtons Logo={Logo}>
                                 </MiddleControlButtons>
                                 <RightControlButtons

@@ -3,7 +3,18 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAlbumSong } from '../../api/album.ts'
 import { useArtistAlbum } from '../../api/artist.ts'
-import { BadLike, CountDemo, CurrentSongList, FirstPlay, IsPlayingDemoTwo, Link } from '../../store/store.ts'
+// import { useArtistAlbum } from '../../api/artist.ts'
+import {
+    audioRefAtom,
+    BadLike,
+    CountDemo,
+    CurrentSongList,
+    FirstPlay,
+    IsPlayingDemoTwo,
+    Link,
+    radioList,
+    radioListDemo,
+} from '../../store/store.ts'
 import eventBus from '../../utils/eventBus.ts'
 import { SvgIcon } from '../SvgIcon'
 import '../SongList/index.less'
@@ -15,6 +26,7 @@ interface Props {
         name: string
         imgPic: string
         id: string
+        radio: Array<any>
         personSongList: Array<{
             title: string
             artist: Array<string>
@@ -40,8 +52,12 @@ export function SongerList(props: Props) {
     const navigate = useNavigate()
     const [songList, setSongList] = useState<Array<any>>([{}, {}, {}, {}, {}, {}])
     const [number, setNumber] = useState(0)
+    const [, setRadioListOne] = useAtom(radioList)
+    const [, setRadioListDemoOne] = useAtom(radioListDemo)
+    const [audioRefDemo] = useAtom(audioRefAtom)
     const { data: artistAlbum } = useArtistAlbum(artistId)
     const { data } = useAlbumSong(artistAlbum?.items?.[0]?.id)
+    // const { data } = useAlbumSong('6EmJazU16yTeITMRgQBsKG')
     useEffect(() => {
         if (data) {
             const tracksData = data
@@ -54,7 +70,7 @@ export function SongerList(props: Props) {
             // 更新当前歌曲列表状态
             setCurrentSong({
                 ...tracksData,
-                imgPic: artist[number].imgPic,
+                imgPic: artist[number]?.imgPic,
             })
             setCount(0)
             setFirstPlay(false)
@@ -63,8 +79,10 @@ export function SongerList(props: Props) {
         }
     }, [data, number])
 
-    const getArtistSongList = async (artistId: string, index: number) => {
+    const getArtistSongList = async (artistId: string, index: number, radio: Array<any>) => {
         setNumber(index)
+        setRadioListOne(radio)
+        setRadioListDemoOne(radio[0])
         if (songList[index]?.items?.length > 0) {
             // 更新当前歌曲列表状态
             setCurrentSong({
@@ -75,6 +93,12 @@ export function SongerList(props: Props) {
 
             // @ts-ignore
             eventBus.emit('play-track', songList[index].items[0].uri)
+            if (audioRefDemo) {
+                // 重置播放位置到开头
+                audioRefDemo.currentTime = 0
+                // 开始播放
+                audioRefDemo.play()
+            }
         }
         else {
             setArtistId(artistId)
@@ -121,7 +145,7 @@ export function SongerList(props: Props) {
                                             setLinkDemo(false)
                                             setBadLikeDemo(false)
                                             setIsPlayingTwo(false)
-                                            getArtistSongList(item.id, index).then()
+                                            getArtistSongList(item.id, index, item.radio).then()
                                         }}
                                     >
                                         <SvgIcon>

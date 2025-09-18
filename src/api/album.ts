@@ -2,9 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { get } from './http.ts'
 
 export function getAlbumList(key: string, offset: number): Promise<any> {
+    if (key === '排行榜') {
+        // console.log(`/search?q=demo&type=album&limit=50&offset=${offset}`)
+        return get(`/search?q=demo&type=album&limit=50&offset=${offset}`)
+    }
     return get(`/search?q=${key}&type=album&limit=50&offset=${offset}`)
 }
-
 export function useAlbumList(key: string, offset: number = 0) {
     return useQuery({
         queryKey: ['albumList', key, offset], // 唯一标识这个查询的键
@@ -42,3 +45,4 @@ export function useAlbumSong(albumId: any) {
         staleTime: 5 * 60 * 1000, // 数据5分钟内被视为新鲜
     })
 }
+// 这个拦截导致跳转首页会重置播放

@@ -8,17 +8,24 @@ import { Track } from '../../components/Track/index.tsx'
 import './index.less'
 import '../../components/SongList/index.less'
 import '../../components/SongListImg/index.less'
+// import { usePlaysList } from '../../api/check.ts'
+// import { useNewAlbums } from '../../api/artist.ts'
 
 export default function MusicLibrary() {
     const [currentTab, setCurrentTab] = useState('tracks')
     const [like] = useState<any>(false)
     const { data: favoriteArtist, refetch } = useFavoriteArtist(like)
+    // console.log(favoriteArtist)
     const {
         data: favoriteList,
         refetch: refetchList,
     } = useFavoriteList(true, currentTab === 'playLists' ? 'playList' : 'album')
+    // console.log(favoriteList)
     const [change] = useState(true)
     const { data: favoriteSongs, refetch: refetchSongs } = useFavoriteSongs(change)
+    // console.log(favoriteSongs)
+    // const { data: newAlbumsDemo } = useNewAlbums()
+    // console.log(newAlbumsDemo)
     const { t } = useTranslation()
     useEffect(() => {
         if (favoriteList) {
@@ -94,7 +101,13 @@ export default function MusicLibrary() {
                 </div>
 
                 <div style={{ display: currentTab === 'tracks' ? '' : 'none' }}>
-                    <Track tracks={{ items: favoriteSongs?.songs }}></Track>
+                    <Track
+                        tracks={{ items: favoriteSongs?.songs }}
+                        radio={[
+                            'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3',
+                        ]}
+                    >
+                    </Track>
                 </div>
 
                 <div style={{ display: currentTab === 'albums' ? '' : 'none' }}>
@@ -111,6 +124,9 @@ export default function MusicLibrary() {
                                 imgPic: item?.images[0]?.url || defaultImg,
                                 content: [],
                                 artists: item?.artists,
+                                radio: [
+                                    'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/006.mp3',
+                                ],
                             }
                         })}
                     >
@@ -127,6 +143,9 @@ export default function MusicLibrary() {
                                     personSongList: [],
                                     id: item?.artistId,
                                     imgPic: item?.images?.[0]?.url || defaultImg,
+                                    radio: [
+                                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/005.mp3',
+                                    ],
                                 }
                             }) || []
                         }
@@ -146,6 +165,9 @@ export default function MusicLibrary() {
                                 title: item.name,
                                 imgPic: item?.images[0]?.url,
                                 content: [],
+                                radio: [
+                                    'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/004.mp3',
+                                ],
                             }
                         })}
                     >

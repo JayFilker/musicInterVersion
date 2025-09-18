@@ -1,10 +1,11 @@
 import { useAtom } from 'jotai'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useAlbumList } from '../../api/album.ts'
 import { useFirstFetchProfile, useRecommendedArtists } from '../../api/search.ts'
 import defaultImg from '../../assets/img/default.png'
 import { Foryou } from '../../components/Foryou'
-import { RankingList } from '../../components/RankingList'
+// import { RankingList } from '../../components/RankingList'
 import { SongerList } from '../../components/SongerList'
 import { SongList } from '../../components/SongList'
 import { SetDemo } from '../../store/store.ts'
@@ -23,12 +24,18 @@ export default function FirstPage() {
         limit: 10,
     }])
     const { t } = useTranslation()
-    const searchTerms = ['recommended', 'popular', 'top']
-    const randomTerm = searchTerms[Math.floor(Math.random() * searchTerms.length)]
+    // const searchTerms = ['recommended', 'popular', 'top']
+    // const randomTerm = searchTerms[Math.floor(Math.random() * searchTerms.length)]
     const { data: apple } = useFirstFetchProfile(keyList[0].name, keyList[0].limit, 'playlist')
     const { data: recommend } = useFirstFetchProfile(keyList[1].name, keyList[1].limit, 'playlist')
-    const { data: linkMusic } = useFirstFetchProfile(keyList[2].name, keyList[2].limit, 'album')
-    const { data: recommendedArtists } = useRecommendedArtists(randomTerm)
+    // console.log(recommend)
+    const { data: linkMusic } = useFirstFetchProfile('new', keyList[2].limit, 'album')
+    const { data: recommendedArtists } = useRecommendedArtists('popular')
+    const { data: rankDemo } = useAlbumList('排行榜', 0)
+    // console.log(randomTerm)
+    // console.log(recommendedArtists)
+    // console.log(rankDemo)
+
     return (
         <div className="home">
             {set.showApple && (
@@ -42,6 +49,7 @@ export default function FirstPage() {
                             id: string
                             name: string
                             images: Array<any>
+                            radio: Array<any>
                         }) => {
                             return {
                                 des: 'by Apple Music',
@@ -49,6 +57,7 @@ export default function FirstPage() {
                                 title: item.name,
                                 imgPic: item.images[0].url,
                                 content: [],
+                                radio: item.radio,
                             }
                         })}
                     >
@@ -65,12 +74,14 @@ export default function FirstPage() {
                         id: string
                         name: string
                         images: Array<any>
+                        radio: Array<any>
                     }) => {
                         return {
                             playListId: item.id,
                             title: item.name,
                             imgPic: item?.images[0]?.url,
                             content: [],
+                            radio: item.radio,
                         }
                     })}
                 >
@@ -92,6 +103,7 @@ export default function FirstPage() {
                                 personSongList: [],
                                 id: item.id,
                                 imgPic: item.images?.[0]?.url || defaultImg,
+                                radio: item.radio,
                             }
                         }) || []
                     }
@@ -109,6 +121,7 @@ export default function FirstPage() {
                         name: string
                         images: Array<any>
                         artists: Array<any>
+                        radio: Array<any>
                     }) => {
                         return {
                             id: item.id,
@@ -117,6 +130,7 @@ export default function FirstPage() {
                             imgPic: item?.images[0]?.url || defaultImg,
                             content: [],
                             artists: item?.artists,
+                            radio: item.radio,
                         }
                     })}
                 >
@@ -127,8 +141,28 @@ export default function FirstPage() {
                     {t('排行榜')}
                     <a href="/discover?key=排行榜" className="title-all">{t('查看全部')}</a>
                 </div>
-                <RankingList>
-                </RankingList>
+                {/* <RankingList> */}
+                {/* </RankingList> */}
+                <SongList
+                    songList={rankDemo?.albums.items.map((item: {
+                        id: string
+                        name: string
+                        images: Array<any>
+                        artists: Array<any>
+                        radio: Array<any>
+                    }) => {
+                        return {
+                            id: item.id,
+                            title: item.name,
+                            des: item?.artists[0]?.name,
+                            imgPic: item?.images[0]?.url || defaultImg,
+                            content: [],
+                            artists: item?.artists,
+                            radio: item?.radio,
+                        }
+                    })}
+                >
+                </SongList>
             </div>
         </div>
     )

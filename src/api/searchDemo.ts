@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { get } from './http.ts'
 
 export function getContent(type: string, key: string, offset?: number) {
+    console.log(`/search?q=${encodeURIComponent(key)}&type=${type}&limit=50&offset=${offset || 0}`)
     return get(`/search?q=${encodeURIComponent(key)}&type=${type}&limit=50&offset=${offset || 0}`)
 }
 

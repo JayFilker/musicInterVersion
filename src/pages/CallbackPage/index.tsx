@@ -29,8 +29,8 @@ function Callback() {
                 }
 
                 // 调用后端接口交换令牌
-                const response = await axios.post('https://musicplayernodejs-production.up.railway.app/api/exchange-token', { code })
-                // const response = await axios.post('http://localhost:3000/api/exchange-token', { code })
+                // const response = await axios.post('https://musicplayernodejs-production.up.railway.app/api/exchange-token', { code })
+                const response = await axios.post('http://localhost:3000/api/exchange-token', { code })
 
                 // 保存令牌到本地存储
                 localStorage.setItem('spotify_access_token', response.data.access_token)

@@ -23,9 +23,13 @@ export default function Artist() {
         }
     }
     const { data: artistDetails } = useArtistDetails(searchParams.get('id') as string)
+    // console.log(artistDetails)
     const { data: artistSongs } = useArtistSongs(searchParams.get('id') as string)
+    // console.log(artistSongs)
     const { data: newAlbumsDemo } = useNewAlbums(searchParams.get('id') as string)
+    // console.log(newAlbumsDemo)
     const { data: artistAlbums } = useArtistAlbums(searchParams.get('id') as string)
+    // console.log(artistAlbums)
     useEffect(() => {
         document.addEventListener('click', handleClickOutside)
         return () => document.removeEventListener('click', handleClickOutside)
@@ -46,7 +50,7 @@ export default function Artist() {
                 <div className="section-title">
                     {t('最新发布')}
                 </div>
-                {newAlbumsDemo?.items.length > 0
+                {newAlbumsDemo?.items?.length > 0
                     ? (
                             <div className="release">
                                 <div className="container">
@@ -57,6 +61,7 @@ export default function Artist() {
                                         newAlbum={true}
                                         id={newAlbumsDemo?.items[0].id}
                                         index={1}
+                                        radio={newAlbumsDemo?.items[0].radio}
                                     >
                                     </SongListImg>
                                     <div className="info">
@@ -104,6 +109,7 @@ export default function Artist() {
                     songFirstDemo={songFirst}
                     setSongFirstDemo={setSongFirst}
                     tracks={{ items: addTrue ? artistSongs?.tracks : artistSongs?.tracks?.slice(0, 12) }}
+                    radio={newAlbumsDemo?.items[0].radio}
                 >
                 </Track>
 
@@ -137,6 +143,7 @@ export default function Artist() {
                         name: string
                         images: Array<any>
                         release_date: string
+                        radio: Array<any>
                     }) => {
                         return {
                             id: item.id,
@@ -144,6 +151,7 @@ export default function Artist() {
                             des: item.release_date.split('-')[0],
                             imgPic: item.images[0].url,
                             content: [],
+                            radio: item.radio,
                         }
                     })}
                 >

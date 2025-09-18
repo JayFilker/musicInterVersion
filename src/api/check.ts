@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { get } from './http.ts'
 
 export function getPlaysList(type: any, id: any) {
+    // console.log(`/${type}/${id}`)
     return get(`/${type}/${id}`)
 }
 
@@ -15,6 +16,7 @@ export function usePlaysList(type: any, id: any) {
 }
 
 export function internalInit(id: any, check: boolean): Promise<any> {
+    // console.log(`/playlists/${id}/tracks`)
     if (check) {
         return get(`/playlists/${id}/tracks`)
     }

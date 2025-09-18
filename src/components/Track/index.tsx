@@ -6,10 +6,11 @@ interface Props {
     tracks?: any
     songFirstDemo?: boolean
     setSongFirstDemo?: (value: boolean) => void
+    radio?: Array<any>
 }
 
 export function Track(props: Props) {
-    const { tracks, songFirstDemo, setSongFirstDemo } = props
+    const { tracks, songFirstDemo, setSongFirstDemo, radio } = props
     const [songFirst, setSongFirst] = useState(true)
     return (
         <div className="track-list">
@@ -46,6 +47,7 @@ export function Track(props: Props) {
                             index={index}
                             songFirst={songFirstDemo ?? songFirst}
                             setSongFirst={setSongFirstDemo ?? setSongFirst}
+                            radio={radio || []}
                         >
                         </TrackItem>
                     )

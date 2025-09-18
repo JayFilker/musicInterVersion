@@ -20,6 +20,7 @@ export default function Discover() {
     const [currentNumber, setCurrentNumber] = useState(0)
     const location = useLocation()
     const { data } = useAlbumList(currentKey === '推荐歌单' ? 'recommend' : currentKey, currentNumber)
+    // console.log(data)
     useEffect(() => {
         if (currentNumber === 0) {
             setAlbumList(data)

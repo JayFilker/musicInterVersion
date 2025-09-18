@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai/index'
 import React, { useEffect, useRef, useState } from 'react'
-import { Device, Volume } from '../../store/store'
+import { audioRefAtom, Volume } from '../../store/store'
 // 使用lodash的throttle函数
 import '../Bar/index.less'
 
@@ -18,8 +18,9 @@ export const VolumeSlider: React.FC<VolumeSliderProps> = ({
 }) => {
     const [isDragging, setIsDragging] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
-    const getToken = () => localStorage.getItem('spotify_access_token') as string
-    const [deviceId] = useAtom(Device)
+    // const getToken = () => localStorage.getItem('spotify_access_token') as string
+    // const [deviceId] = useAtom(Device)
+    const [audioRefDemo] = useAtom(audioRefAtom)
     const [volume, setVolume] = useAtom(Volume)
     // 计算百分比值，用于CSS显示
     const getPercentage = () => ((volume - min) / (max - min)) * 100
@@ -51,18 +52,18 @@ export const VolumeSlider: React.FC<VolumeSliderProps> = ({
     const handleMouseUp = () => {
         setIsDragging(false)
     }
-    const adjustVolume = async (volumeDecimal: number) => {
-        if (!deviceId)
-            return
-        const safeVolumeDecimal = Math.max(0, Math.min(1, volumeDecimal))
-        const volumePercent = Math.round(safeVolumeDecimal * 100)
-        await fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volumePercent}&device_id=${deviceId}`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${getToken()}`,
-            },
-        })
-    }
+    // const adjustVolume = async (volumeDecimal: number) => {
+    //     if (!deviceId)
+    //         return
+    //     const safeVolumeDecimal = Math.max(0, Math.min(1, volumeDecimal))
+    //     const volumePercent = Math.round(safeVolumeDecimal * 100)
+    //     await fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volumePercent}&device_id=${deviceId}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             Authorization: `Bearer ${getToken()}`,
+    //         },
+    //     })
+    // }
     useEffect(() => {
         if (isDragging) {
             document.addEventListener('mousemove', handleMouseMove)
@@ -75,7 +76,10 @@ export const VolumeSlider: React.FC<VolumeSliderProps> = ({
         }
     }, [isDragging])
     useEffect(() => {
-        adjustVolume(volume)
+        // adjustVolume(volume)
+        if (audioRefDemo) {
+            audioRefDemo.volume = volume
+        }
     }, [volume])
 
     return (
