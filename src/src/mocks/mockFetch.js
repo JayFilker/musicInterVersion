@@ -11,7 +11,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/008.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/008.mp3',
                     ],
                     album_type: 'compilation',
                     total_tracks: 11,
@@ -244,7 +244,7 @@ const mockResponses = {
                 },
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/006.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/006.mp3',
                     ],
                     album_type: 'album',
                     total_tracks: 14,
@@ -301,7 +301,7 @@ const mockResponses = {
                 },
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/009.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/009.mp3',
                     ],
                     album_type: 'single',
                     total_tracks: 1,
@@ -534,7 +534,7 @@ const mockResponses = {
                 },
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/004.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/004.mp3',
                     ],
                     collaborative: false,
                     description: 'Ongoing list of 50 or so non-label standouts from the current year.',
@@ -573,8 +573,8 @@ const mockResponses = {
                 },
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3',
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/003.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/002.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/003.mp3',
                     ],
                     collaborative: false,
                     description: 'The Beatles perform live for the last time on the roof of their London record label Apple Records. The Woodstock Music &amp; Art Fair is held in Bethel, NY with 500,000 attending. A man is stabbed and beaten to death at the Rolling Stones free concert at California&#x27;s Altamont Speedway.',
@@ -625,8 +625,8 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3',
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/003.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/002.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/003.mp3',
                     ],
                     collaborative: false,
                     description: 'The Beatles perform live for the last time on the roof of their London record label Apple Records. The Woodstock Music &amp; Art Fair is held in Bethel, NY with 500,000 attending. A man is stabbed and beaten to death at the Rolling Stones free concert at California&#x27;s Altamont Speedway.',
@@ -677,7 +677,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/004.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/004.mp3',
                     ],
                     collaborative: false,
                     description: 'Ongoing list of 50 or so non-label standouts from the current year.',
@@ -728,7 +728,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/006.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/006.mp3',
                     ],
                     album_type: 'album',
                     total_tracks: 14,
@@ -797,7 +797,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/005.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/005.mp3',
                     ],
                     external_urls: {
                         spotify: 'https://open.spotify.com/artist/1WDoaSGtFrO4ZPMZqLiaEU',
@@ -849,7 +849,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/012.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/012.mp3',
                     ],
                     album: {
                         album_type: 'album',
@@ -1311,7 +1311,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/010.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/010.mp3',
                     ],
                     external_urls: {
                         spotify: 'https://open.spotify.com/artist/1ZwdS5xdxEREPySFridCfh',
@@ -1363,7 +1363,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/011.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/011.mp3',
                     ],
                     album_type: 'compilation',
                     total_tracks: 25,
@@ -1605,7 +1605,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/014.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/014.mp3',
                     ],
                     collaborative: false,
                     description: 'Struggling with your mental health? Then you need my support via my Laser Focused Positivity self-help playlist. 😀',
@@ -1732,7 +1732,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/004.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/004.mp3',
                     ],
                     collaborative: false,
                     description: 'Ongoing list of 50 or so non-label standouts from the current year.',
@@ -1783,7 +1783,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/009.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/009.mp3',
                     ],
                     album_type: 'single',
                     total_tracks: 1,
@@ -3059,7 +3059,7 @@ const mockResponses = {
         items: [
             {
                 radio: [
-                    'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/005.mp3',
+                    'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/005.mp3',
                 ],
                 album_type: 'album',
                 total_tracks: 5,
@@ -3303,7 +3303,7 @@ const mockResponses = {
         items: [
             {
                 radio: [
-                    'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/007.mp3',
+                    'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/007.mp3',
                 ],
                 album_type: 'album',
                 total_tracks: 7,
@@ -3549,7 +3549,7 @@ const mockResponses = {
     },
     'https://api.spotify.com/v1/artists/1WDoaSGtFrO4ZPMZqLiaEU': {
         radio: [
-            'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/005.mp3',
+            'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/005.mp3',
         ],
         external_urls: {
             spotify: 'https://open.spotify.com/artist/1WDoaSGtFrO4ZPMZqLiaEU',
@@ -4498,8 +4498,8 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3',
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/003.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/002.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/003.mp3',
                     ],
                     added_at: '2021-01-22T15:06:52Z',
                     added_by: {
@@ -4949,7 +4949,7 @@ const mockResponses = {
         items: [
             {
                 radio: [
-                    'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/004.mp3',
+                    'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/004.mp3',
                 ],
                 added_at: '2025-11-21T23:36:09Z',
                 added_by: {
@@ -5091,7 +5091,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/004.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/004.mp3',
                     ],
                     added_at: '2025-11-21T23:36:09Z',
                     added_by: {
@@ -5664,7 +5664,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/009.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/009.mp3',
                     ],
                     artists: [
                         {
@@ -6364,7 +6364,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/007.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/007.mp3',
                     ],
                     artists: [
                         {
@@ -7100,7 +7100,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/005.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/005.mp3',
                     ],
                     artists: [
                         {
@@ -7870,7 +7870,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/006.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/006.mp3',
                     ],
                     artists: [
                         {
@@ -8162,7 +8162,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/008.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/008.mp3',
                     ],
                     album_type: 'compilation',
                     total_tracks: 11,
@@ -8861,7 +8861,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/008.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/008.mp3',
                     ],
                     artists: [
                         {
@@ -9559,7 +9559,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/011.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/011.mp3',
                     ],
                     artists: [
                         {
@@ -10327,7 +10327,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/014.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/014.mp3',
                     ],
                     added_at: '2022-06-20T06:53:41Z',
                     added_by: {
@@ -10916,7 +10916,7 @@ const mockResponses = {
         items: [
             {
                 radio: [
-                    'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/010.mp3',
+                    'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/010.mp3',
                 ],
                 album_type: 'album',
                 total_tracks: 16,
@@ -11162,7 +11162,7 @@ const mockResponses = {
     },
     'https://api.spotify.com/v1/artists/1ZwdS5xdxEREPySFridCfh': {
         radio: [
-            'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/010.mp3',
+            'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/010.mp3',
         ],
         external_urls: {
             spotify: 'https://open.spotify.com/artist/1ZwdS5xdxEREPySFridCfh',
@@ -11667,7 +11667,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/010.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/010.mp3',
                     ],
                     artists: [
                         {
@@ -11913,7 +11913,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/010.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/010.mp3',
                     ],
                     external_urls: {
                         spotify: 'https://open.spotify.com/artist/1ZwdS5xdxEREPySFridCfh',
@@ -11967,7 +11967,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/011.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/011.mp3',
                     ],
                     album_type: 'compilation',
                     total_tracks: 25,
@@ -12211,7 +12211,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/012.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/012.mp3',
                     ],
                     album: {
                         album_type: 'album',
@@ -12675,7 +12675,7 @@ const mockResponses = {
             items: [
                 {
                     radio: [
-                        'https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/014.mp3',
+                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/014.mp3',
                     ],
                     collaborative: false,
                     description: 'Struggling with your mental health? Then you need my support via my Laser Focused Positivity self-help playlist. 😀',

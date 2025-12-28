@@ -19,15 +19,8 @@ export function SongListImg(props: {
     const { img, id, check, size, newAlbum, radio } = props
     const navigate = useNavigate()
     const [show, setShow] = useState<boolean>(false)
-    // const [, setRadioListOne] = useAtom(radioList)
-    // const [, setRadioListDemoOne] = useAtom(radioListDemo)
     const [audioRefDemo] = useAtom(audioRefAtom)
     const [, setCount] = useAtom(CountDemo)
-    // useEffect(() => {
-    //     if (number === 0 && index === 0) {
-    //         initTwo(id, img, false).then()
-    //     }
-    // }, [])
     return (
         <div
             className="cover cover-hover"
@@ -45,12 +38,6 @@ export function SongListImg(props: {
                 className="cover-container"
                 onClick={(e) => {
                     if (size && !newAlbum) {
-                        // if (radio) {
-                        //     setRadioListOne(radio)
-                        //     setRadioListDemoOne(radio[0])
-                        // }
-                        // setRadioListOne(['https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3'])
-                        // setRadioListDemoOne('https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3')
                         if (audioRefDemo) {
                             audioRefDemo.load()
                         }
@@ -85,13 +72,6 @@ export function SongListImg(props: {
                         }
 
                         onClick={(e) => {
-                            // setRadioListOne(['https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3'])
-                            // setRadioListDemoOne('https://lzjmusicresource.oss-cn-guangzhou.aliyuncs.com/002.mp3')
-                            // if (radio) {
-                            //     setRadioListOne(radio)
-                            //     setRadioListDemoOne(radio[0])
-                            // }
-                            // handleClick({ e, id, index, img })
                             setCount(0)
                             eventBus.emit('playList-playing', { e, id: { id, radio: radio || [] }, img, check: !!check })
                             if (audioRefDemo) {
