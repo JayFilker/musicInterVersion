@@ -104,7 +104,7 @@ export default function MusicLibrary() {
                     <Track
                         tracks={{ items: favoriteSongs?.songs }}
                         radio={[
-                            'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/002.mp3',
+                            '/music/002.mp3',
                         ]}
                     >
                     </Track>
@@ -125,7 +125,7 @@ export default function MusicLibrary() {
                                 content: [],
                                 artists: item?.artists,
                                 radio: [
-                                    'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/006.mp3',
+                                    '/music/006.mp3',
                                 ],
                             }
                         })}
@@ -144,7 +144,7 @@ export default function MusicLibrary() {
                                     id: item?.artistId,
                                     imgPic: item?.images?.[0]?.url || defaultImg,
                                     radio: [
-                                        'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/005.mp3',
+                                        '/music/005.mp3',
                                     ],
                                 }
                             }) || []
@@ -166,7 +166,7 @@ export default function MusicLibrary() {
                                 imgPic: item?.images[0]?.url,
                                 content: [],
                                 radio: [
-                                    'https://music-vue-1395414804.cos.ap-guangzhou.myqcloud.com/004.mp3',
+                                    '/music/004.mp3',
                                 ],
                             }
                         })}
